@@ -1,6 +1,6 @@
 {
-  "name": "@tunaitis/whoiserer",
-  "version": "1.0.3",
+  "name": "whoiserer",
+  "version": "1.0.4",
   "description": "A slightly improved version of whoiser.",
   "license": "MIT",
   "repository": "tunaitis/whoiserer",

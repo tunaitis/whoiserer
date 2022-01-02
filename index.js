@@ -50,7 +50,7 @@ module.exports = async function whoiserer(query, options) {
     return {
         name,
         isAvailable,
-        expires: whoisData["Expiry Date"],
+        expiry: whoisData["Expiry Date"],
         created: whoisData["Created Date"],
         updated: whoisData["Updated Date"],
         status: whoisData["Domain Status"],

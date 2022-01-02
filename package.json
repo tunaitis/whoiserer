@@ -1,0 +1,16 @@
+{
+  "name": "@tunaitis/whoiserer",
+  "version": "1.0.2",
+  "description": "A slightly improved version of whoiser.",
+  "license": "MIT",
+  "repository": "tunaitis/whoiserer",
+  "main": "index.js",
+  "keywords": [
+    "whois",
+    "whoiser"
+  ],
+  "dependencies": {
+    "parse-domain": "^4.1.0",
+    "whoiser": "^1.13.1"
+  }
+}

@@ -1,24 +1,22 @@
-const whoiser = require("whoiser");
 module.exports = async function whoiserer(query, options) {
-
     const whoiser = require("whoiser")
-    const pd = require("parse-domain")
+    const psl = require("psl")
 
-    const domainInfo = pd.parseDomain(query)
+    const domainInfo = psl.parse(query)
 
-    if (
-        typeof domainInfo.domain === "undefined" ||
-        domainInfo.type !== "LISTED" ||
-        domainInfo.topLevelDomains.length === 0
-    ) {
-        return new Error("Invalid domain name")
+    if ( typeof domainInfo.error !== "undefined" ) {
+        return new Error(domainInfo.error.message)
     }
 
-    const name = `${domainInfo.domain}.${domainInfo.topLevelDomains[0]}`
+    if (domainInfo.domain === null) {
+        return new Error("Invalid domain.")
+    }
+
+    console.log(domainInfo)
 
     let whoisData = {}
     try {
-        const whoiserResponse = await whoiser.domain(name, options)
+        const whoiserResponse = await whoiser.domain(domainInfo.domain, options)
         whoisData = whoiserResponse[Object.keys(whoiserResponse)[0]]
     } catch (e) {
         return e;
@@ -48,11 +46,17 @@ module.exports = async function whoiserer(query, options) {
     })()
 
     return {
-        name,
+        name: domainInfo.name,
         isAvailable,
-        expiry: whoisData["Expiry Date"],
-        created: whoisData["Created Date"],
-        updated: whoisData["Updated Date"],
+        expiry: whoisData.hasOwnProperty("Expiry Date")
+            ? new Date(Date.parse(whoisData["Expiry Date"]))
+            : undefined,
+        created: whoisData.hasOwnProperty("Created Date")
+            ? new Date(Date.parse(whoisData["Created Date"]))
+            : undefined,
+        updated: whoisData.hasOwnProperty("Updated Date")
+            ? new Date(Date.parse(whoisData["Updated Date"]))
+            : undefined,
         status: whoisData["Domain Status"],
         nameServer: whoisData["Name Server"],
     }

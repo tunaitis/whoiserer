@@ -44,7 +44,7 @@ module.exports = async function whoiserer(query, options) {
     })()
 
     return {
-        name: domainInfo.name,
+        name: domainInfo.domain,
         isAvailable,
         expiry: whoisData.hasOwnProperty("Expiry Date")
             ? new Date(Date.parse(whoisData["Expiry Date"]))

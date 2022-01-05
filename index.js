@@ -1,20 +1,9 @@
-module.exports = async function whoiserer(query, options) {
-    const whoiser = require("whoiser")
-    const psl = require("psl")
-
-    const domainInfo = psl.parse(query)
-
-    if ( typeof domainInfo.error !== "undefined" ) {
-        return new Error(domainInfo.error.message)
-    }
-
-    if (domainInfo.domain === null) {
-        return new Error("Invalid domain.")
-    }
+const whoiser = require("whoiser")
+module.exports = async function whoiserer(name, options) {
 
     let whoisData = {}
     try {
-        const whoiserResponse = await whoiser.domain(domainInfo.domain, options)
+        const whoiserResponse = await whoiser.domain(name, options)
         whoisData = whoiserResponse[Object.keys(whoiserResponse)[0]]
     } catch (e) {
         return e;
@@ -44,7 +33,7 @@ module.exports = async function whoiserer(query, options) {
     })()
 
     return {
-        name: domainInfo.domain,
+        name,
         isAvailable,
         expiry: whoisData.hasOwnProperty("Expiry Date")
             ? new Date(Date.parse(whoisData["Expiry Date"]))

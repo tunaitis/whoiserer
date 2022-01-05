@@ -1,6 +1,6 @@
 {
   "name": "whoiserer",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "A slightly improved version of whoiser.",
   "license": "MIT",
   "repository": "tunaitis/whoiserer",
@@ -10,7 +10,6 @@
     "whoiser"
   ],
   "dependencies": {
-    "psl": "^1.8.0",
     "whoiser": "^1.13.1"
   }
 }

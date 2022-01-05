@@ -12,8 +12,6 @@ module.exports = async function whoiserer(query, options) {
         return new Error("Invalid domain.")
     }
 
-    console.log(domainInfo)
-
     let whoisData = {}
     try {
         const whoiserResponse = await whoiser.domain(domainInfo.domain, options)
